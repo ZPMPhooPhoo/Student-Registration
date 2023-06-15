@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>All Students</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+</head>
+
+<body>
+    <div class="container my-2">
+        <h3>Student Registration Form</h3>
+    <div class="card">
+    <div class="card-body">
+        <div th:switch="${students}" class="container my-3">
+            <p class="my-3">
+                <a th:href="@{/}" class="btn btn-warning">
+                    <i class="fas fa-arrow-left ml-2">Home Page</i>
+                </a>
+                <a href="/student/edit" class="btn btn-success">
+                <i class="fas fa-user-plus ml-2"> Add Student </i></a>
+            </p>
+            <div class="col-md-12">
+                <h2 th:case="null">No record found !!</h2>
+                <div th:case="*">
+                    <table class="table table-striped table-responsive-md">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Age</th>
+                                <th>Course</th>
+                                <th>Gender</th>
+                                <th>Date Of Birth</th>
+                                <th>Address</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="student : ${students}">
+                                <td th:text="${student.studentName}"></td>
+                                <td th:text="${student.studentAge}"></td>
+                                <td th:text="${student.studentCourse}"></td>
+                                <td th:text="${student.studentGender}"></td>
+                                <td th:text="${student.studentDOB}"></td>
+                                <td th:text="${student.studentAddress}"></td>
+                                <td>
+                                    <a th:href="@{/student/edit/{id}(id=${student.id})}" class="btn btn-primary">
+                                        <i class="fas fa-user-edit ml-2"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a th:href="@{/student/delete/{id}(id=${student.id})}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this student?');">
+                                        <i class="fas fa-user-times ml-2"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+</body>
+
+</html>
